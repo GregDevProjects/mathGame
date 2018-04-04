@@ -11,7 +11,6 @@ export default class Choice extends Phaser.GameObjects.Sprite {
 	update(){
       this.text.x =(this.x);
       this.text.y = (this.y);
-    //  debugger;
       this.body.setVelocityY(160);
 	}
 

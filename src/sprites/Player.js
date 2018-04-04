@@ -1,6 +1,6 @@
 export default class Player extends Phaser.GameObjects.Sprite {
 	constructor(config){
-		 super(config.scene, 300 , 600 , 'option'); 
+		 super(config.scene, 300 , 500 , 'player1'); 
 		 config.scene.physics.world.enable(this);  
 		 this.optionsGroup = this.scene.question;
 		 config.scene.add.existing(this);
@@ -29,7 +29,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 	}
 
 	onPlayerOptionCollision(player, option){
-      option.isCorrectAnswer ? player.scene.question.resetQuestion() : '';
+      option.isCorrectAnswer ? player.scene.question.resetQuestion() : player.scene.showGameOver();
     }
 
 }
