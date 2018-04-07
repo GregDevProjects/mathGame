@@ -8,7 +8,9 @@ export default class GameplayScene extends Phaser.Scene {
       super({
         key: 'GamePlay'
       });
-
+      // debugger; 
+      // this.height = this.scene.manager.game.renderer.height;
+      // this.width = this.scene.manager.game.renderer.width;
       this.jquery = require('jquery');
     }
   preload() {

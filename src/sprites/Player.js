@@ -1,9 +1,12 @@
 export default class Player extends Phaser.GameObjects.Sprite {
 	constructor(config){
-		 super(config.scene, 300 , 500 , 'player1'); 
-		 config.scene.physics.world.enable(this);  
-		 this.optionsGroup = this.scene.question;
-		 config.scene.add.existing(this);
+		//really have to do all this just to get game height!?
+		let height = config.scene.scene.manager.game.renderer.height;
+		let width = config.scene.scene.manager.game.renderer.width;
+		super(config.scene, width/2 , height - 100 , 'player1'); 
+		config.scene.physics.world.enable(this);  
+		this.optionsGroup = this.scene.question;
+		config.scene.add.existing(this);
 	}
 
 	update(keys, time, delta){

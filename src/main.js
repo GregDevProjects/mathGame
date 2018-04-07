@@ -3,8 +3,8 @@ import GameplayScene from './GameplayScene';
 
 let config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: window.innerWidth,// * window.devicePixelRatio,
+    height: window.innerHeight,// * window.devicePixelRatio,
     physics: {
         default: 'arcade',
         arcade: {
@@ -20,3 +20,4 @@ let game = new Phaser.Game(config);
 
 /*
 https://codepen.io/samme/pen/JMVBeV*/
+//https://github.com/nkholski/phaser3-es6-webpack
