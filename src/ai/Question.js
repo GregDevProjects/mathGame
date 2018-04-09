@@ -1,6 +1,7 @@
 import Choice from '../sprites/Choice'
 import Addition from './Addition'
 
+//FIXME: use seperate class for actions that trigger game changes 
 export default class Question extends Phaser.GameObjects.Group {
 	constructor(config){
     super(config.scene); 

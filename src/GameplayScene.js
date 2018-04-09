@@ -24,7 +24,7 @@ export default class GameplayScene extends Phaser.Scene {
     this.question = new Question({
         scene: this,
         choices: 3,
-        complexity: 3,
+        complexity: 2,
         maxNumber: 20
     });
 
@@ -45,6 +45,8 @@ export default class GameplayScene extends Phaser.Scene {
     }
     this.player.update(this.keys, time, delta)
     this.question.update();
+
+
   }
 
   pauseGame(){

@@ -17,7 +17,7 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
-
+StatusBar.hide();
 /*
 https://codepen.io/samme/pen/JMVBeV*/
 //https://github.com/nkholski/phaser3-es6-webpack
