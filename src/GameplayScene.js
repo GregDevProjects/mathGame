@@ -16,11 +16,20 @@ export default class GameplayScene extends Phaser.Scene {
   preload() {
     this.load.image('option', 'src/img/option.png');
     this.load.image('player1', 'src/img/player1.png');
-
+    this.load.image('bg','src/img/bg.png');
     //this.showMenu();
   }
 
   create() {
+
+    this.bg = this.add.tileSprite(
+      0, 
+      0, 
+      this.scene.manager.game.config.width *2, 
+      this.scene.manager.game.config.height *2, 
+      'bg'
+    );
+
     this.question = new Question({
         scene: this,
         choices: 3,
@@ -34,11 +43,14 @@ export default class GameplayScene extends Phaser.Scene {
       left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
       right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
     };
+   
 
+   
     this.paused = false;
   }
 
   update(time, delta) {
+   this.bg.tilePositionY -= 1;
     if(this.paused){
       this.pauseGame();
       return;
