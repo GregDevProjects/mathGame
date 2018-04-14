@@ -50,6 +50,7 @@ export default class GameplayScene extends Phaser.Scene {
   }
 
   update(time, delta) {
+    //move bg 
    this.bg.tilePositionY -= 1;
     if(this.paused){
       this.pauseGame();

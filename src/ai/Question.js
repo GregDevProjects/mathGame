@@ -15,6 +15,10 @@ export default class Question extends Phaser.GameObjects.Group {
     this.displayCurrentQuestion();
 	}
 
+  setComplexity(complexity) {
+    this.complexity = complexity;
+  }
+
 	update(){
 		this.children.entries.forEach(function(anOption){
 			anOption.update();
