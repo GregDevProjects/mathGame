@@ -1,5 +1,5 @@
-import Player from './sprites/Player'
 import Level from './ai/Level'
+import Menu from './Menu'
 
 
 export default class GameplayScene extends Phaser.Scene {
@@ -7,10 +7,6 @@ export default class GameplayScene extends Phaser.Scene {
       super({
         key: 'GamePlay'
       });
-      // debugger; 
-      // this.height = this.scene.manager.game.renderer.height;
-      // this.width = this.scene.manager.game.renderer.width;
-      this.jquery = require('jquery');
     }
   preload() {
     this.load.image('option', 'src/img/option.png');
@@ -30,8 +26,9 @@ export default class GameplayScene extends Phaser.Scene {
     );
 
     this.level = new Level({scene: this});
-   
-    this.paused = false;
+    this.menu = new Menu({scene: this});
+    this.menu.showTitleScreen();
+    this.paused = true;
   }
 
   update(time, delta) {
@@ -54,36 +51,9 @@ export default class GameplayScene extends Phaser.Scene {
     this.level.reset();
   }
 
-  showMenu(){
-    let x = this.jquery('#menu');
-    x.css('z-index','1');
-  }
-
-  hideMenu(){
-    let x = this.jquery('#menu');
-    x.css('z-index','-1');     
-    this.resetMenuText();
-  }
-
   showGameOver(){
-    this.showMenu();
-    let left = this.jquery('#left');
-    let right = this.jquery('#right');
-    left.text('Give Up');
-    right.text('Retry');
-    var scene =  this;
-    right.click(function(){
-      scene.resetGame();
-      scene.hideMenu();
-    });
-
+    this.menu.showGameOver();
     this.paused = true;
   }
   
-  resetMenuText(){
-    let left = this.jquery('#left');
-    let right = this.jquery('#right');
-    left.text('');
-    right.text('');
-  }
 }

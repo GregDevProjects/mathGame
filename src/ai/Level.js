@@ -10,8 +10,6 @@ const QuestionTypes = { Addition: 1, Substraction: 2 };
 export default class Level { 
 
 	constructor(config){
-		//super(config.scene); 
-
 	    this.question = new Question({
 	        scene: config.scene,
 	        choices: 3,
@@ -70,7 +68,7 @@ export default class Level {
 			anOption.body.setVelocityY(0);
    		});
 	}
-	
+
 	reset(){
 		this.score = 0;
 		this.question.resetQuestion(Addition.getAdditionQuestion(this.getDifficultyBasedOnScore()));

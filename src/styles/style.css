@@ -15,17 +15,27 @@
     width: 50%;
     height: 50%;
     position: absolute;
-    background-color: blue;
+    background-color: white;
     z-index: -1; 
     right: 25%;
+    pointer-events: none;
   }
 
   .menu-selection {
     width: 100%;
     position: absolute;
     text-align: center;
-    top: 40px;
     color: white;
-    background-color: green; 
+    background-color: blue; 
     padding: 20px 0;
+    pointer-events: all;
+  }
+
+
+  .menu-title {
+    position: absolute;
+    top: 30px;
+    text-align: center;
+    width: 100%;
+    font-size: 80px;
   }
