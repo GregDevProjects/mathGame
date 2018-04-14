@@ -1,6 +1,5 @@
 import Player from './sprites/Player'
-import Question from './ai/Question'
-
+import Level from './ai/Level'
 
 
 export default class GameplayScene extends Phaser.Scene {
@@ -30,21 +29,7 @@ export default class GameplayScene extends Phaser.Scene {
       'bg'
     );
 
-    this.question = new Question({
-        scene: this,
-        choices: 3,
-        complexity: 2,
-        maxNumber: 20
-    });
-
-    this.player = new Player({ scene: this });
-
-    this.keys = {
-      left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
-      right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
-    };
-   
-
+    this.level = new Level({scene: this});
    
     this.paused = false;
   }
@@ -56,23 +41,17 @@ export default class GameplayScene extends Phaser.Scene {
       this.pauseGame();
       return;
     }
-    this.player.update(this.keys, time, delta)
-    this.question.update();
-
-
+    this.level.update();
   }
 
   pauseGame(){
-    this.player.body.setVelocityX(0);
-    this.question.children.entries.forEach(function(anOption){
-      anOption.body.setVelocityY(0);
-    });
+    this.level.pause();
   }
 
   resetGame(){
+    //this.level.reset();
     this.paused = false;
-    this.question.resetQuestion();
-
+    this.level.reset();
   }
 
   showMenu(){

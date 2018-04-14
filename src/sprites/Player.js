@@ -8,21 +8,27 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		config.scene.physics.world.enable(this); 
 		this.body.setCollideWorldBounds(true);
 		this.height = height;
-		this.optionsGroup = this.scene.question;
+		//debugger;
+		this.level = config.level;
 		config.scene.add.existing(this);
+
+	    this.keys = {
+			left: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+			right: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
+    	};
 
 		
 	}
 	//FIXME: keyboard is a settings 
 	//FIXME: refactor control methods 
-	update(keys, time, delta){
-		this.scene.physics.overlap(this, this.optionsGroup, this.onPlayerOptionCollision);
+	update(){
+		//this.scene.physics.overlap(this, this.level.question, this.onPlayerOptionCollision);
 		
-		if (keys.left.isDown)
+		if (this.keys.left.isDown)
 		{
 		    this.body.setVelocityX(-260);
 		}
-		else if (keys.right.isDown)
+		else if (this.keys.right.isDown)
 		{
 		    this.body.setVelocityX(260);
 		}
@@ -51,8 +57,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 	    
 	}
 
-	onPlayerOptionCollision(player, option){
-		option.isCorrectAnswer ? player.scene.question.resetQuestion() : player.scene.showGameOver();
-    }
+
 
 }

@@ -8,16 +8,21 @@ export default class Question extends Phaser.GameObjects.Group {
     config.scene.physics.world.enable(this);
     config.scene.add.existing(this);
     this.choices = config.choices;
-    this.complexity = config.complexity;
-    this.maxNumber = config.maxNumber;
-    this.currentQuestion = Addition.getAdditionQuestion(this.maxNumber,this.complexity, this.choices);
+    // this.complexity = config.complexity;
+    // this.maxNumber = config.maxNumber;
+    this.currentQuestion = config.problem;
+    this.level = config.level;
     this.createChildren();
     this.displayCurrentQuestion();
 	}
 
-  setComplexity(complexity) {
-    this.complexity = complexity;
-  }
+  // setComplexity(complexity) {
+  //   this.complexity = complexity;
+  // }
+
+  // setMaxNumber(maxNumber){
+  //   this.maxNumber = maxNumber;
+  // }
 
 	update(){
 		this.children.entries.forEach(function(anOption){
@@ -51,12 +56,10 @@ export default class Question extends Phaser.GameObjects.Group {
 
 
   //when player collides with the right option 
-  resetQuestion(game){
-    this.currentQuestion = Addition.getAdditionQuestion(this.maxNumber,this.complexity, this.choices);
-
+  resetQuestion(problem){
+    this.currentQuestion = problem;
+    var currentQuestion = this.currentQuestion;
     this.children.entries.forEach(function(anOption, i){
-      //probably a better way to do this 
-      let currentQuestion = anOption.scene.question.currentQuestion;
       anOption.changeTextAndMoveToTop(
         currentQuestion.options[i], 
         (currentQuestion.options[i] == currentQuestion.answer)

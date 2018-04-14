@@ -1,6 +1,13 @@
 //TODO: template for exporting question types 
 export default class Addition{
-	static getAdditionQuestion(max, steps, numberOfoptions){
+	static getAdditionQuestion(config){
+
+		// { choices: 3, complexity: 2, maxNumber:20 }
+
+		var max = config.maxNumber;
+		var steps = config.complexity;
+		var numberOfoptions = config.choices;
+
 		var question = [];
 
 		var sum = 0;
