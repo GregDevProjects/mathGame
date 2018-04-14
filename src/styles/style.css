@@ -14,10 +14,10 @@
   .menu-popup {
     width: 50%;
     height: 50%;
+    right: 25%;
     position: absolute;
     background-color: white;
     z-index: -1; 
-    right: 25%;
     pointer-events: none;
   }
 

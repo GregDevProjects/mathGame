@@ -8,3 +8,7 @@ mkdir ../../mathGameCordova/www
 mkdir ../../mathGameCordova/www/src
 cp -R ../src/img ../../mathGameCordova/www/src/
 cp -R ../build/* ../../mathGameCordova/www/
+
+cd ../../mathGameCordova
+cordova build android 
+cordova run android 

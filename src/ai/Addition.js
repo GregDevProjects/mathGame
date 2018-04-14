@@ -34,6 +34,7 @@ export default class Addition{
 		return {"questions" : question, "answer" : sum, "options": options };
 	}
 
+
 	/**
    * Returns a random integer between min (inclusive) and max (inclusive)
    * Using Math.round() will give you a non-uniform distribution!

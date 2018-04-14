@@ -1,9 +1,9 @@
 //TODO - remove click listeners when the menu changes 
 
 // FLOW
-// setup starting and stopping the game 
-// fine tune addition 
-// add sprite for choices 
+// text jitters on gameover 
+// - add explosion 
+// - change flow so non-contact choices go past player 
 export default class Menu {
 
 	constructor(config){
@@ -26,6 +26,8 @@ export default class Menu {
   	}
 
   	showTitle(){
+  		this.title.css('display','inline'); 
+
   		this.menu.width('100%')
 			.height('100%')
 			.css('right',0)
@@ -47,9 +49,23 @@ export default class Menu {
 	showGameOver(){
 
 		this.showMenu();
-		this.selection1.text('Give Up');
-		this.selection2.text('Retry');
+		this.title.css('display','none'); 
+
+		this.selection1.text('Give Up').css('top', 50);
+		this.selection2.text('Retry').css('top', 150);
+
+		this.menu.css('width', '50%')
+			.css('height', '50%')
+			.css('right', '25%')
+
 		var scope =  this;
+
+		this.selection1.click(function(){
+			scope.hideMenu();
+			scope.showTitle();
+			scope.scene.pauseGame();
+		});
+
 		this.selection2.click(function(){
 			scope.hideMenu();
 			scope.scene.resetGame();

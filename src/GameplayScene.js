@@ -9,7 +9,8 @@ export default class GameplayScene extends Phaser.Scene {
       });
     }
   preload() {
-    this.load.image('option', 'src/img/option.png');
+    this.load.spritesheet('blocks', 'src/img/blocks.png',{frameWidth:80, 'frameHeight':60});
+
     this.load.image('player1', 'src/img/player1.png');
     this.load.image('bg','src/img/bg.png');
     //this.showMenu();
@@ -46,7 +47,6 @@ export default class GameplayScene extends Phaser.Scene {
   }
 
   resetGame(){
-    //this.level.reset();
     this.paused = false;
     this.level.reset();
   }
