@@ -22,10 +22,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
 	//FIXME: keyboard is a settings 
 	//FIXME: refactor control methods 
 	update(){
-		//this.scene.physics.overlap(this, this.level.question, this.onPlayerOptionCollision);
+		
 		
 		if (this.keys.left.isDown)
 		{
+			
 		    this.body.setVelocityX(-260);
 		}
 		else if (this.keys.right.isDown)

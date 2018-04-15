@@ -17,6 +17,12 @@ export default class Choice extends Phaser.GameObjects.Sprite {
 		
 	}
 
+	playKaboom(){
+		this.text.destroy();
+		this.anims.play('kaboom',true).
+			currentAnim.onComplete = () => {this.scene.showGameOver();};
+	}
+
 	changeTextAndMoveToTop(newText, isCorrectAnswer){
       this.text.destroy();
       this.text = this.scene.add.text(this.x, this.y, newText, this.fontStyle);
@@ -30,6 +36,9 @@ export default class Choice extends Phaser.GameObjects.Sprite {
 	}
 
     applyRandomTexture(){
+    	if(this.texture.key !== 'blocks'){
+    		this.texture.manager.setTexture(this, 'blocks', 0);
+    	}
     	let newFrame = this.getRandomInt(0,3);
     	newFrame == 0 ? this.text.setColor('black') : null;
     	this.setFrame(newFrame);

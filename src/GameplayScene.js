@@ -9,14 +9,23 @@ export default class GameplayScene extends Phaser.Scene {
       });
     }
   preload() {
-    this.load.spritesheet('blocks', 'src/img/blocks.png',{frameWidth:80, 'frameHeight':60});
-
+    this.load.spritesheet('blocks', 'src/img/blocks.png', {frameWidth:80, 'frameHeight':60});
+    this.load.spritesheet('explosion', 'src/img/explosion.png', { 'frameWidth': 96, 'frameHeight': 96 });
     this.load.image('player1', 'src/img/player1.png');
     this.load.image('bg','src/img/bg.png');
-    //this.showMenu();
   }
 
   create() {
+
+    let config = {
+        key: 'kaboom',
+        frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 11 }),
+        frameRate: 20,
+        repeat: 0,
+        hideOnComplete: false
+    };
+    this.anims.create(config);
+
 
     this.bg = this.add.tileSprite(
       0, 
@@ -55,5 +64,4 @@ export default class GameplayScene extends Phaser.Scene {
     this.menu.showGameOver();
     this.paused = true;
   }
-  
 }

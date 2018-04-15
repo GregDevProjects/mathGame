@@ -58,7 +58,12 @@ export default class Level {
 	}
 
 	onPlayerQuestionCollision(player, option){
-		option.isCorrectAnswer ? player.level.onCorrectAnswer() : player.scene.showGameOver();
+		if(option.isCorrectAnswer) {
+			player.level.onCorrectAnswer();
+			return;			
+		}
+		option.playKaboom();
+		player.visible = false;
     }
 
     //should have pause methods 
@@ -70,6 +75,7 @@ export default class Level {
 	}
 
 	reset(){
+		this.player.visible = true;
 		this.score = 0;
 		this.question.resetQuestion(Addition.getAdditionQuestion(this.getDifficultyBasedOnScore()));
 	}
