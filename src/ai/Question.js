@@ -8,8 +8,6 @@ export default class Question extends Phaser.GameObjects.Group {
     config.scene.physics.world.enable(this);
     config.scene.add.existing(this);
     this.choices = config.choices;
-    // this.complexity = config.complexity;
-    // this.maxNumber = config.maxNumber;
     this.currentQuestion = config.problem;
     this.level = config.level;
     this.createChildren();

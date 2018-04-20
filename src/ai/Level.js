@@ -1,22 +1,23 @@
 import Question from './Question'
 import Player from '../sprites/Player'
-import Addition from './Addition'
+import { Problem, Questiontypes, Difficulty } from './Problem'
 
-//FIXME: enumify this
-const QuestionTypes = { Addition: 1, Substraction: 2 };
+
 //holds gameplay logic
 //spawns player
 //keeps track of correct questions to determine types of questions 
 export default class Level { 
 
 	constructor(config){
+		this.questionType = Questiontypes.Addition;
+
 	    this.question = new Question({
 	        scene: config.scene,
 	        choices: 3,
 	        level: this,
-	        problem: Addition.getAdditionQuestion(difficulty.s)
+	        problem: Problem.getQuestion(Difficulty.s, this.questionType)
 	    });
-	    //debugger;
+
 	    this.player = new Player({ 
 	    	scene: config.scene, 
 	    	level: this 
@@ -28,27 +29,32 @@ export default class Level {
 
 	onCorrectAnswer(){
 		this.score++;
-		this.question.resetQuestion(Addition.getAdditionQuestion(this.getDifficultyBasedOnScore()));
+		this.question.resetQuestion(
+			Problem.getQuestion(
+				this.getDifficultyBasedOnScore(),
+				this.questionType
+			)
+		);
 	}
 
 	getDifficultyBasedOnScore(){
 		if(this.score < 5 ) {
-			return difficulty.s;
+			return Difficulty.s;
 		}
 
 		if(this.score < 10){
-			return difficulty.m;
+			return Difficulty.m;
 		}
 
 		if(this.score < 15){
-			return difficulty.l;
+			return Difficulty.l;
 		}
 
 		if(this.score < 20){
-			return difficulty.xl;
+			return Difficulty.xl;
 		}
 
-		return difficulty.xxl
+		return Difficulty.xxl
 	}
 
 	update(){
@@ -77,7 +83,10 @@ export default class Level {
 	reset(){
 		this.player.visible = true;
 		this.score = 0;
-		this.question.resetQuestion(Addition.getAdditionQuestion(this.getDifficultyBasedOnScore()));
+		this.question.resetQuestion(
+			Problem.getQuestion(this.getDifficultyBasedOnScore(), 
+			this.questionType)
+		);
 	}
 	
 
@@ -85,10 +94,3 @@ export default class Level {
 
 
 //levelsettings 
-const difficulty = {
-	s: { choices: 3, complexity: 2, maxNumber:20 },
-	m: { choices: 3, complexity: 2, maxNumber:40 },
-	l: { choices: 3, complexity: 3, maxNumber:10 },
-	xl: { choices: 3, complexity: 3, maxNumber:20 },
-	xxl: { choices: 3, complexity: 3, maxNumber:40 }
-} 
