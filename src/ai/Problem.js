@@ -1,5 +1,7 @@
 import Addition from './Addition'
 import Substraction from './Subtraction'
+import Multiplication from './Multiplication'
+import Division from './Division'
 
 export const Questiontypes = { Addition: 1, Subtraction: 2, Multiplication: 3, Division: 4 }; 
 
@@ -9,23 +11,23 @@ export const Difficulty = {
 	l: { choices: 3, complexity: 3, maxNumber:10 },
 	xl: { choices: 3, complexity: 3, maxNumber:20 },
 	xxl: { choices: 3, complexity: 3, maxNumber:40 }
-} 
+}; 
 
 export class Problem {
 	static getQuestion(difficulty, questiontype) {
 
 		switch (questiontype){
 			case Questiontypes.Addition:
-				return Addition.getAdditionQuestion(difficulty);
+				return Addition.getQuestion(difficulty);
 
 			case Questiontypes.Subtraction:
 				return Substraction.getQuestion(difficulty);
 
 			case Questiontypes.Multiplication:
-				return Multiplication.getAdditionQuestion(difficulty);
+				return Multiplication.getQuestion(difficulty);
 
 			case Questiontypes.Division:
-				return Division.getAdditionQuestion(difficulty);				
+				return Division.getQuestion(difficulty);				
 		}
 	}
 }

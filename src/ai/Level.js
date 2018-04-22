@@ -80,7 +80,8 @@ export default class Level {
    		});
 	}
 
-	reset(){
+	reset(questionType){
+		this.questionType = questionType;
 		this.player.visible = true;
 		this.score = 0;
 		this.question.resetQuestion(

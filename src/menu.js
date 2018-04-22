@@ -1,3 +1,4 @@
+import { Questiontypes } from './ai/Problem'
 //TODO - remove click listeners when the menu changes 
 //FIXME - change font to sans serif 
 // FLOW
@@ -14,6 +15,8 @@ export default class Menu {
 		this.title = this.jquery('#title');
 		this.selection1 = this.jquery('#selection-1');
 		this.selection2 = this.jquery('#selection-2');
+		this.selection3 = this.jquery('#selection-3');
+		this.selection4 = this.jquery('#selection-4');
 	}
 
 	showMenu(){
@@ -39,11 +42,33 @@ export default class Menu {
 		this.selection2.css('top', 400)
 			.text('Subtraction');
 
+		this.selection3.css('top', 500)
+			.text('Multiplication');
+
+		this.selection4.css('top', 600)
+			.text('Division');
+
 		var scope =  this;
 		this.selection1.click(function(){
 			scope.hideMenu();
-			scope.scene.resetGame();
+			scope.scene.resetGame(Questiontypes.Addition);
 		});
+
+		this.selection2.click(function(){
+			scope.hideMenu();
+			scope.scene.resetGame(Questiontypes.Subtraction);
+		});
+
+		this.selection3.click(function(){
+			scope.hideMenu();
+			scope.scene.resetGame(Questiontypes.Multiplication);
+		});
+
+		this.selection4.click(function(){
+			scope.hideMenu();
+			scope.scene.resetGame(Questiontypes.Division);
+		});
+
   	}	
 
 	showGameOver(){

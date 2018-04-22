@@ -1,7 +1,6 @@
 import Level from './ai/Level'
 import Menu from './Menu'
 
-
 export default class GameplayScene extends Phaser.Scene {
     constructor(test) {
       super({
@@ -58,9 +57,10 @@ export default class GameplayScene extends Phaser.Scene {
     this.level.pause();
   }
 
-  resetGame(){
+  resetGame(questiontype){
     this.paused = false;
-    this.level.reset();
+    questiontype = questiontype ? questiontype : this.level.questionType;
+    this.level.reset(questiontype);
   }
 
   showGameOver(){
