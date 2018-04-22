@@ -21,24 +21,13 @@ export default class Subtraction {
 			sum -= numberInQuestion;
 		}
 
-		let displayQuestion = question.join(" - ");
-		//GET OPTIONS 
-		var options = [];
-		var anserIndex = Helper.getRandomInt(0,numberOfoptions - 1);
-		for(var i=0; i < numberOfoptions; i++){
-			if(anserIndex === i){
-				options.push(sum);
-				continue;
-			}
-			var isSubtract = Helper.getRandomInt(0,1);
-			var offset = Helper.getRandomInt(1,max);
-			options.push(
-				(isSubtract ? sum - offset : sum + offset)
-			);
-		}
 		//question + question = sum 
 		//options: what the player can select 
-		return {"display" : displayQuestion, "answer" : sum, "options": options };
+		return {
+			"display" : question.join(" - "), 
+			"answer" : sum, 
+			"options": Helper.getArrayOfChoicesForQuestion(numberOfoptions, sum, max) 
+		};
 	}
 
 }

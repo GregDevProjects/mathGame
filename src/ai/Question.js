@@ -15,9 +15,7 @@ export default class Question extends Phaser.GameObjects.Group {
 	}
 
 	update(){
-		this.children.entries.forEach(function(anOption){
-			anOption.update();
-		});
+    this.children.iterate((anOption) => {anOption.update();});
 	}
 
   createChildren(){
@@ -49,7 +47,8 @@ export default class Question extends Phaser.GameObjects.Group {
   resetQuestion(problem){
     this.currentQuestion = problem;
     var currentQuestion = this.currentQuestion;
-    this.children.entries.forEach(function(anOption, i){
+
+    this.children.iterate((anOption, i) => {
       anOption.changeTextAndMoveToTop(
         currentQuestion.options[i], 
         (currentQuestion.options[i] == currentQuestion.answer)
