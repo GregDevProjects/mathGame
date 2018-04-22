@@ -67,8 +67,8 @@ export default class Question extends Phaser.GameObjects.Group {
       this.displayText = this.scene.add.text().setFont('40px Arial').setFill('#ffff00');
       this.displayText.y =50;
     }
-    let output = this.currentQuestion.questions.join(" + ");
-    this.displayText.setText(output);// + ' = ' + this.currentQuestion.answer);
+
+    this.displayText.setText(this.currentQuestion.display);
     let height = this.scene.scene.manager.game.renderer.height;
     let width = this.scene.scene.manager.game.renderer.width;   
     this.displayText.x = (width - this.displayText.width)/2;

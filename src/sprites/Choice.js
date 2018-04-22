@@ -20,15 +20,19 @@ export default class Choice extends Phaser.GameObjects.Sprite {
 	playKaboom(){
 		this.text.destroy();
 		this.anims.play('kaboom',true).
-			currentAnim.onComplete = () => {this.scene.showGameOver();};
+			currentAnim.onComplete = () => { this.scene.showGameOver(); };
 	}
 
 	changeTextAndMoveToTop(newText, isCorrectAnswer){
-      this.text.destroy();
-      this.text = this.scene.add.text(this.x, this.y, newText, this.fontStyle);
-      this.y = -this.height;    
-      this.isCorrectAnswer = isCorrectAnswer;  
-      this.applyRandomTexture();
+		this.visible = true;
+		
+		//FIXME: reword instead of destroy 
+		this.text.destroy();
+		this.text = this.scene.add.text(this.x, this.y, newText, this.fontStyle);
+		this.applyRandomTexture();
+		this.y = -this.height;    
+		this.isCorrectAnswer = isCorrectAnswer;  
+		
     }
 
     getRandomInt(min, max) {
@@ -43,6 +47,4 @@ export default class Choice extends Phaser.GameObjects.Sprite {
     	newFrame == 0 ? this.text.setColor('black') : null;
     	this.setFrame(newFrame);
     }
-
-
 }

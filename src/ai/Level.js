@@ -9,7 +9,7 @@ import { Problem, Questiontypes, Difficulty } from './Problem'
 export default class Level { 
 
 	constructor(config){
-		this.questionType = Questiontypes.Addition;
+		this.questionType = Questiontypes.Subtraction;
 
 	    this.question = new Question({
 	        scene: config.scene,

@@ -1,3 +1,4 @@
+import Helper from '../Helper.js'
 //TODO: template for exporting question types 
 export default class Addition{
 	static getAdditionQuestion(config){
@@ -12,34 +13,28 @@ export default class Addition{
 
 		var sum = 0;
 		for(var i=0; i < steps; i++){
-			var numberInQuestion = this.getRandomInt(0,max);
+			var numberInQuestion = this.Helper.getRandomInt(0,max);
 			question.push(numberInQuestion);
 			sum += numberInQuestion;
 		}
-
+		let displayQuestion = questions.join(" + ");
 		var options = [];
-		var anserIndex = this.getRandomInt(0,numberOfoptions - 1);
+		var anserIndex = this.Helper.getRandomInt(0,numberOfoptions - 1);
 		for(var i=0; i < numberOfoptions; i++){
 			if(anserIndex === i){
 				options.push(sum);
 				continue;
 			}
-			var isSubtract = this.getRandomInt(0,1);
-			var offset = this.getRandomInt(1,max);
+			var isSubtract = this.Helper.getRandomInt(0,1);
+			var offset = this.Helper.getRandomInt(1,max);
 			options.push(
 				(isSubtract ? sum - offset : sum + offset)
 			);
 		}
 
-		return {"questions" : question, "answer" : sum, "options": options };
+		return {"display" : displayQuestion, "answer" : sum, "options": options };
 	}
 
 
-	/**
-   * Returns a random integer between min (inclusive) and max (inclusive)
-   * Using Math.round() will give you a non-uniform distribution!
-   */
-  static getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+
 }

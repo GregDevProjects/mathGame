@@ -17,15 +17,17 @@ export default class GameplayScene extends Phaser.Scene {
 
   create() {
 
+    //START ANIMATION
     let config = {
-        key: 'kaboom',
-        frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 11 }),
-        frameRate: 20,
-        repeat: 0,
-        hideOnComplete: false
+      key: 'kaboom',
+      frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 11 }),
+      frameRate: 20,
+      repeat: 0,
+      hideOnComplete: true
     };
-    this.anims.create(config);
 
+    this.anims.create(config);
+    //END ANIMATION
 
     this.bg = this.add.tileSprite(
       0, 
@@ -43,12 +45,13 @@ export default class GameplayScene extends Phaser.Scene {
 
   update(time, delta) {
     //move bg 
-   this.bg.tilePositionY -= 1;
+   
     if(this.paused){
       this.pauseGame();
       return;
     }
     this.level.update();
+    this.bg.tilePositionY -= 1;
   }
 
   pauseGame(){

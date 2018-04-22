@@ -1,5 +1,5 @@
 //TODO - remove click listeners when the menu changes 
-
+//FIXME - change font to sans serif 
 // FLOW
 // text jitters on gameover 
 // - add explosion 

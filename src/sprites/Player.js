@@ -1,6 +1,5 @@
 export default class Player extends Phaser.GameObjects.Sprite {
 	constructor(config){
-
 		//really have to do all this just to get game height!?
 		let height = config.scene.scene.manager.game.renderer.height - 100;
 		let width = config.scene.scene.manager.game.renderer.width;
@@ -8,7 +7,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		config.scene.physics.world.enable(this); 
 		this.body.setCollideWorldBounds(true);
 		this.height = height;
-		//debugger;
 		this.level = config.level;
 		config.scene.add.existing(this);
 
@@ -19,11 +17,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
 		
 	}
-	//FIXME: keyboard is a settings 
+	//FIXME: keyboard is a setting 
 	//FIXME: refactor control methods 
 	update(){
-		
-		
+			
 		if (this.keys.left.isDown)
 		{
 			
@@ -47,17 +44,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
 			this.scene.physics.moveTo(
 				this,  
-				this.scene.input.x,// + this.scene.cameras.main.scrollX, 
+				this.scene.input.x,
 				this.height,
 				300
 			);
 			return;
 	    } 
     	this.body.setVelocityX(0);
-    	this.body.setVelocityY(0);
-	    
+    	this.body.setVelocityY(0);	    
 	}
-
-
-
 }
