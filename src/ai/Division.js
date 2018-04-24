@@ -20,7 +20,6 @@ export default class Division {
 
 		let question = [ firstDivideVariable ];
 		question = question.concat(possibleQuestion);
-		
 
 		return { 
 			"display" : question.join(" / "), 

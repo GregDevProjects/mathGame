@@ -4,9 +4,14 @@ import Menu from './Menu'
 export default class GameplayScene extends Phaser.Scene {
     constructor(test) {
       super({
-        key: 'GamePlay'
+        key: 'gamePlay'
       });
     }
+
+    init(data) {
+        this.gameType = data.questionType;
+    }
+
   preload() {
     this.load.spritesheet('blocks', 'src/img/blocks.png', {frameWidth:80, 'frameHeight':60});
     this.load.spritesheet('explosion', 'src/img/explosion.png', { 'frameWidth': 96, 'frameHeight': 96 });
@@ -37,9 +42,8 @@ export default class GameplayScene extends Phaser.Scene {
     );
 
     this.level = new Level({scene: this});
-    this.menu = new Menu({scene: this});
-    this.menu.showTitleScreen();
     this.paused = true;
+    this.resetGame(this.gameType);
   }
 
   update(time, delta) {
@@ -59,7 +63,6 @@ export default class GameplayScene extends Phaser.Scene {
 
   resetGame(questiontype){
     this.paused = false;
-    questiontype = questiontype ? questiontype : this.level.questionType;
     this.level.reset(questiontype);
   }
 

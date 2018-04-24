@@ -1,6 +1,7 @@
 import './styles/style.css';
 import 'phaser';
 import GameplayScene from './GameplayScene';
+import MenuScene from './MenuScene';
 
 let config = {
     type: Phaser.CANVAS,
@@ -13,6 +14,7 @@ let config = {
         }
     },
     scene: [
+        MenuScene,
         GameplayScene
     ]
 };
