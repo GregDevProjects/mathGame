@@ -23,7 +23,4 @@ export default class Multiplication {
 			"options": Helper.getArrayOfChoicesForQuestion(numberOfoptions, sum, max)
 		};
 	}
-
-
-
 }

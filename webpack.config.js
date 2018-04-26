@@ -3,6 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
+
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
 var phaser = path.join(phaserModule, 'src/phaser.js')
@@ -62,7 +63,8 @@ module.exports = {
             { test: /\.js$/, use: ['babel-loader'], include: path.join(__dirname, 'src') },
             { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
             { test: [/\.vert$/, /\.frag$/], use: 'raw-loader' },
-            { test:/\.css$/, use:['style-loader','css-loader'] }
+            { test:/\.css$/, use:['style-loader','css-loader'],},
+            { test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, use: "file-loader" }
         ]
     },
     node: {
@@ -75,4 +77,6 @@ module.exports = {
             'phaser': phaser,
         }
     }
+
+    
 }

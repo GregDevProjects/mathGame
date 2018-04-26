@@ -1,7 +1,14 @@
+
 import './styles/style.css';
+import './styles/fa-regular-400.ttf'
+
+// import './styles/fa-regular-400'
 import 'phaser';
 import GameplayScene from './GameplayScene';
 import MenuScene from './MenuScene';
+
+
+
 
 let config = {
     type: Phaser.CANVAS,

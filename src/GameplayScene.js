@@ -67,7 +67,7 @@ export default class GameplayScene extends Phaser.Scene {
   }
 
   showGameOver(){
-    this.menu.showGameOver();
+    Menu.showGameOver(this);
     this.paused = true;
   }
 }
