@@ -1,10 +1,10 @@
 import Level from './ai/Level'
-import Menu from './Menu'
 
 export default class GameplayScene extends Phaser.Scene {
     constructor(test) {
       super({
-        key: 'gamePlay'
+        key: 'gamePlay',
+        active: false
       });
     }
 
@@ -67,7 +67,8 @@ export default class GameplayScene extends Phaser.Scene {
   }
 
   showGameOver(){
-    Menu.showGameOver(this);
+   this.scene.start('GameOver');
+
     this.paused = true;
   }
 }

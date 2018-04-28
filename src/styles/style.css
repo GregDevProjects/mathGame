@@ -40,8 +40,3 @@
     font-size: 80px;
   }
 
-
-  @font-face {
-    font-family:"FontAwesome";
-    src:url("fa-regular-400.ttf");
-  }

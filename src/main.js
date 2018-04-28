@@ -1,14 +1,8 @@
-
 import './styles/style.css';
-import './styles/fa-regular-400.ttf'
-
-// import './styles/fa-regular-400'
 import 'phaser';
 import GameplayScene from './GameplayScene';
 import MenuScene from './MenuScene';
-
-
-
+import GameOverScene from './GameOverScene';
 
 let config = {
     type: Phaser.CANVAS,
@@ -20,13 +14,15 @@ let config = {
             gravity: { y: 0 }
         }
     },
-    scene: [
+    scene: [     
         MenuScene,
+        GameOverScene,
         GameplayScene
+        
     ]
 };
 
 let game = new Phaser.Game(config);
-/*
-https://codepen.io/samme/pen/JMVBeV*/
+// /*
+// https://codepen.io/samme/pen/JMVBeV*/
 //https://github.com/nkholski/phaser3-es6-webpack
