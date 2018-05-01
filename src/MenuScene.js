@@ -1,5 +1,7 @@
 //title menu
 import { Questiontypes } from './ai/Problem'
+import Helper from './Helper.js'
+
 export default class MenuScene extends Phaser.Scene {
   constructor(test) {
     super({
@@ -15,6 +17,12 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   create() {
+    this.titleSpriteDirectionTime = 5*60;
+
+    this.tickCounter = this.titleSpriteDirectionTime;
+    this.tileSpriteDirectionX = -1;
+    this.tileSpriteDirectionY = -1;
+
 
     this.bg = this.add.tileSprite(
       0, 
@@ -24,76 +32,69 @@ export default class MenuScene extends Phaser.Scene {
       'bg'
     );
 
+    this.spaceStyleAddTitleText();
 
-    this.fontStyle = {font: "90px Helvetica", fill: "#ffffff", fontWeight : 'bolder' };
-    this.textSpace = this.add.text(window.innerWidth/2, 10, 'SPACE', this.fontStyle);
-    this.textMath = this.add.text(window.innerWidth/2, 10, 'MATH', this.fontStyle);
-    this.textSpace.x=window.innerWidth/2 - this.textSpace.width/2;
-    this.textMath.x=window.innerWidth/2 - this.textMath.width/2;
-    this.textMath.y= this.textSpace.y + this.textSpace.height;
-
+    //width of a button
     let menuwidth = 100;
 
     let fistXPosition = (window.innerWidth - menuwidth)/3;
 
     let secondXPostion = fistXPosition + menuwidth + fistXPosition;
 
-    this.addition = this.add.image(fistXPosition, 300, 'addition').setInteractive();
-    this.division = this.add.image(fistXPosition, 450, 'division').setInteractive();
-    this.multiplication = this.add.image(secondXPostion, 450, 'multiplication').setInteractive();
-    this.subtraction = this.add.image(secondXPostion, 300, 'subtraction').setInteractive();
+    //setAngle(-20)
+    let buttons = [
+      { key: 'addition', type: Questiontypes.Addition, x: fistXPosition, y: 300, tweenConfig: {scaleX: 1.2,scaleY: 1.2,yoyo: true,repeat: -1}},
+      { key: 'division', type: Questiontypes.Division, x: fistXPosition, y: 450, tweenConfig: {alpha: 0.7,yoyo: true,repeat: -1}},
+      { key: 'multiplication', type: Questiontypes.Multiplication, x: secondXPostion, y: 450, tweenConfig: {angle: 360,repeat: -1,duration: 2000}},
+      { angle: 20, key: 'subtraction', type: Questiontypes.Subtraction, x: secondXPostion, y: 300, tweenConfig: {angle: -20, yoyo: true,repeat: -1}}
+    ]
 
-    this.division.on('pointerdown', () => {
-      this.scene.start('gamePlay', {questionType: Questiontypes.Division});
-    }, this);
- 
-    this.addition.on('pointerdown', function () {
-      this.scene.start('gamePlay', {questionType: Questiontypes.Addition});
-    }, this);
+    this.setupButtons(buttons);
+}
 
-    this.multiplication.on('pointerdown', function () {
-      this.scene.start('gamePlay', {questionType: Questiontypes.Multiplication});
-    }, this);
+  spaceStyleAddTitleText(){
+    let fontStyle = {font: "90px Helvetica", fill: "#ffffff", fontWeight : 'bolder' };
+    let textSpace = this.add.text(window.innerWidth/2, 10, 'SPACE', fontStyle);
+    let textMath = this.add.text(window.innerWidth/2, 10, 'MATH',fontStyle);
+    textSpace.x=window.innerWidth/2 - textSpace.width/2;
+    textMath.x=window.innerWidth/2 - textMath.width/2;
+    textMath.y= textSpace.y + textSpace.height;
+  }
 
-    this.subtraction.on('pointerdown', function () {
-      this.scene.start('gamePlay', {questionType: Questiontypes.Subtraction});
-    }, this);    
+  setupButtons(buttons){
+    for (let aButton of buttons) {
 
-    this.tweens.add({
-      targets: this.addition,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      yoyo: true,
-      repeat: -1
-  });
+      let img = this.add.image(aButton.x, aButton.y, aButton.key).setInteractive().on('pointerdown', () => {
+        this.scene.start('gamePlay', {questionType: aButton.type});
+      }, this);
 
-  this.tweens.add({
-      targets: this.division,
-      alpha: 0.7,
-      yoyo: true,
-      repeat: -1
-  });
+      aButton.tweenConfig.targets = img;
 
-  this.tweens.add({
-    targets: this.multiplication,
-    angle: 360,
-    repeat: -1
-  });
+      img.setAngle(aButton.angle ? aButton.angle : 0);
 
-  this.tweens.add({
-    targets: this.subtraction,
-    angle: 20,
-    yoyo: true,
-    repeat: -1
-  });
-
+      this.tweens.add(
+        aButton.tweenConfig
+      );
+    }
   }
 
   update(time, delta) {
 
-    this.bg.tilePositionY -= 1;
-    this.bg.tilePositionX -= 1;
+    this.tickCounter--
+    if(this.tickCounter < 0){
+      this.resetTileSpriteScrollDirection();
+    }
 
+    this.bg.tilePositionY += this.tileSpriteDirectionX;
+    this.bg.tilePositionX += this.tileSpriteDirectionY;
+
+  }
+
+  resetTileSpriteScrollDirection(){
+    let values = [-1,1];
+    this.tileSpriteDirectionX = Helper.getRandomValueFromArray(values);
+    this.tileSpriteDirectionY = Helper.getRandomValueFromArray(values);
+    this.tickCounter = this.titleSpriteDirectionTime;
   }
 
 }

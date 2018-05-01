@@ -9,6 +9,12 @@ export default class Helper{
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
+	static getRandomValueFromArray(array) {
+		return array[
+				this.getRandomInt(0,array.length - 1)
+			];
+	}
+
 	static getArrayOfChoicesForQuestion(numberOfoptions, answer, highestVariable){
 		var options = [];
 		var anserIndex = this.getRandomInt(0,numberOfoptions - 1);
