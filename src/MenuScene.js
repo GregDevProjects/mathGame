@@ -1,12 +1,15 @@
 //title menu
 import { Questiontypes } from './ai/Problem'
-import Helper from './Helper.js'
+import { Helper, GAME_PROGRESS } from './Helper'
+import { LocalStorageHandler } from './LocalStorageHandler'
 
 export default class MenuScene extends Phaser.Scene {
   constructor(test) {
     super({
       key: 'Menu'
     });
+
+    this.localStorage = new LocalStorageHandler();
   }
   preload() {
     this.load.image('addition', 'src/img/100_fa_plus.png');
@@ -32,8 +35,6 @@ export default class MenuScene extends Phaser.Scene {
       'bg'
     );
 
-    this.bg.setTint(0xFF1A00);
-
     this.spaceStyleAddTitleText();
 
     //width of a button
@@ -53,9 +54,10 @@ export default class MenuScene extends Phaser.Scene {
 
     this.setupButtons(buttons);
 
-    let fontStyle = {font: "30px Helvetica", fill: "#ffffff", fontWeight : 'bolder' };
+    let fontStyle = {font: "30px Helvetica", fill: "#ff0000", fontWeight : 'bolder' };
     this.text = this.add.text(-444, window.innerHeight - 50, 'YOU MUST UNLOCK ADDITION', fontStyle );
-   
+    
+    
    
 }
 
@@ -66,9 +68,6 @@ export default class MenuScene extends Phaser.Scene {
     textSpace.x=window.innerWidth/2 - textSpace.width/2;
     textMath.x=window.innerWidth/2 - textMath.width/2;
     textMath.y= textSpace.y + textSpace.height;
-
-    textMath.setTint(0xFF1A00);
-    debugger;
   }
 
   setupButtons(buttons){
@@ -78,17 +77,12 @@ export default class MenuScene extends Phaser.Scene {
       let img = this.add.image(aButton.x, aButton.y, aButton.key).setInteractive().on('pointerdown', (event, test) => {
         
         if(this.tweeny === undefined ||  !this.tweeny.isPlaying()){
+          this.onButtonHit(event);
           //show error text 
-          this.tweeny = this.tweens.add({x: 444, targets: this.text, onComplete: () => {this.text.x=-444;}});
-          //flash button red 
-          for (let aButton of this.menuButtons) {
-            if(aButton.getBounds().contains(event.x, event.y)){
-              debugger;
-              this.tweens.add({from: 0, to: 100, duration: 2000, targets: aButton, yoyo: true, onUpdate: ()=>{aButton.setTint(0xFF1A00, 0xFF1A00, 0xFF1A00, 0xFF1A00);} });
-            }
-          }
+          let x = LocalStorage('yo');//.getGameProgress();
+
         }
-        debugger;
+        //START THE GAME
        //this.scene.start('gamePlay', {questionType: aButton.type});
 
       }, this);
@@ -96,15 +90,25 @@ export default class MenuScene extends Phaser.Scene {
       aButton.tweenConfig.targets = img;
 
       img.setAngle(aButton.angle ? aButton.angle : 0);
-
+      img.gameType = aButton.type;
       this.tweens.add(
         aButton.tweenConfig
       );
-
-      img.setTint(0xFF1A00);
       
       this.menuButtons.push(img);
     }
+  }
+
+  onButtonHit(event){
+    for (let aButton of this.menuButtons) {
+      if(aButton.getBounds().contains(event.x, event.y)){
+          console.log(aButton.gameType);
+
+      }
+    }
+    this.tweeny = this.tweens.add(
+      {x: 444, targets: this.text, onComplete: () => {this.text.x=-444;}}
+    )
   }
 
   update(time, delta) {

@@ -28,7 +28,6 @@ export default class GameOverScene extends Phaser.Scene {
     this.text.x=rightAnswer.x - this.text.width/2;
     this.text = this.add.text(rightAnswer.x, rightAnswer.y - 50, '2 + 2 + 2 = 4', this.fontStyle); 
     this.text.x=rightAnswer.x - this.text.width/2;
-    debugger;
     var scope = this;
     //this seems to respond to every input, need to listen for pointerup event 
     graphics.setInteractive(retry, this.goMenu, this );

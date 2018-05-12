@@ -1,6 +1,6 @@
 //random functions used in a bunch of places that I'm too lazy to organize 
 
-export default class Helper{
+export class Helper{
 	/**
 	* Returns a random integer between min (inclusive) and max (inclusive)
 	* Using Math.round() will give you a non-uniform distribution!
@@ -32,4 +32,11 @@ export default class Helper{
 		return options;
 	}
 
+}
+
+export const GAME_PROGRESS = {
+	NOTHING : 1,
+	SUBRACTION : 2,
+	MULTIPLICATION : 3,
+	DIVISION : 4
 }
