@@ -1,4 +1,4 @@
-import Helper from '../Helper.js'
+import { getRandomInt } from '../Helper'
 
 //TODO: method for creating text for spprite
 export default class Choice extends Phaser.GameObjects.Sprite {
@@ -41,7 +41,7 @@ export default class Choice extends Phaser.GameObjects.Sprite {
     	if(this.texture.key !== 'blocks'){
     		this.texture.manager.setTexture(this, 'blocks', 0);
     	}
-    	let newFrame = Helper.getRandomInt(0,3);
+    	let newFrame = getRandomInt(0,3);
     	newFrame == 0 ? this.text.setColor('black') : null;
     	this.setFrame(newFrame);
     }

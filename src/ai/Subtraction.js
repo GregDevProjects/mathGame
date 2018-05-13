@@ -1,4 +1,4 @@
-import Helper from '../Helper.js'
+import {getRandomInt, getArrayOfChoicesForQuestion} from '../Helper'
 
 //TODO: template for exporting question types 
 export default class Subtraction { 
@@ -12,7 +12,7 @@ export default class Subtraction {
 		var question = [];
 		var sum = false;
 		for(var i=0; i < steps; i++){
-			var numberInQuestion = Helper.getRandomInt(0,max);	
+			var numberInQuestion = getRandomInt(0,max);	
 			question.push(numberInQuestion);
 			if(sum === false) {
 				sum = numberInQuestion;
@@ -26,7 +26,7 @@ export default class Subtraction {
 		return {
 			"display" : question.join(" - "), 
 			"answer" : sum, 
-			"options": Helper.getArrayOfChoicesForQuestion(numberOfoptions, sum, max) 
+			"options": getArrayOfChoicesForQuestion(numberOfoptions, sum, max) 
 		};
 	}
 

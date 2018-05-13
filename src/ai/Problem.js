@@ -3,7 +3,16 @@ import Substraction from './Subtraction'
 import Multiplication from './Multiplication'
 import Division from './Division'
 
-export const Questiontypes = { Addition: 1, Subtraction: 2, Multiplication: 3, Division: 4 }; 
+export const Questiontypes = { Addition: 1, Subtraction: 2, Division: 3, Multiplication: 4 }; 
+
+export function getQuestionText(questionType) {
+	for(let i = 0; i < Object.keys(Questiontypes).length; i++){
+		let keyValue = Object.entries(Questiontypes)[i];
+		if(keyValue[1] == questionType){
+			return keyValue[0];
+		}
+	}
+} 
 
 export const Difficulty = {
 	s: { choices: 3, complexity: 2, maxNumber:20 },

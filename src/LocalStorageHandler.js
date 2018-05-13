@@ -1,11 +1,11 @@
-import { GAME_PROGRESS } from './Helper.js'
+import { Questiontypes } from './ai/Problem'
 
 export class LocalStorageHandler {
     constructor() {
         let savedProgress = localStorage.getItem('SpaceMathGameProgress');
 
         if(!savedProgress) {
-            this.saveGameProgress(GAME_PROGRESS.NOTHING);  
+            this.saveGameProgress(Questiontypes.Addition);  
         }
 
     }
@@ -15,7 +15,7 @@ export class LocalStorageHandler {
             return localStorage.getItem('SpaceMathGameProgress');
         } catch(e) {
             console.log('cant get game progress', e);
-            return GAME_PROGRESS.NOTHING;
+            return Questiontypes.Addition;
         }
     }
 

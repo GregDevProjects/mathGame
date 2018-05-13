@@ -1,4 +1,4 @@
-import Helper from '../Helper.js'
+import { getArrayOfChoicesForQuestion, getRandomInt } from '../Helper'
 //TODO: template for exporting question types 
 export default class Division {
 	static getQuestion(config){
@@ -11,7 +11,7 @@ export default class Division {
 		var firstDivideVariable = 1;
 		
 		for(var i=0; i < steps; i++){
-			var numberInQuestion = Helper.getRandomInt(1,max);
+			var numberInQuestion = getRandomInt(1,max);
 			possibleQuestion.push(numberInQuestion);
 			firstDivideVariable *= numberInQuestion;
 		}
@@ -24,7 +24,7 @@ export default class Division {
 		return { 
 			"display" : question.join(" / "), 
 			"answer" : answer, 
-			"options": Helper.getArrayOfChoicesForQuestion(numberOfoptions, answer, max)
+			"options": getArrayOfChoicesForQuestion(numberOfoptions, answer, max)
 		};
 	}
 }

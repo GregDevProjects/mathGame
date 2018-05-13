@@ -1,4 +1,4 @@
-import Helper from '../Helper.js'
+import { getRandomInt, getArrayOfChoicesForQuestion } from '../Helper'
 //TODO: template for exporting question types 
 export default class Addition {
 	static getQuestion(config){
@@ -11,7 +11,7 @@ export default class Addition {
 		var sum = 0;
 		
 		for(var i=0; i < steps; i++){
-			var numberInQuestion = Helper.getRandomInt(0,max);
+			var numberInQuestion = getRandomInt(0,max);
 			question.push(numberInQuestion);
 			sum += numberInQuestion;
 		}
@@ -19,7 +19,7 @@ export default class Addition {
 		return { 
 			"display" : question.join(" + "), 
 			"answer" : sum, 
-			"options": Helper.getArrayOfChoicesForQuestion(numberOfoptions, sum, max)
+			"options": getArrayOfChoicesForQuestion(numberOfoptions, sum, max)
 		};
 	}
 }
