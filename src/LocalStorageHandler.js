@@ -2,12 +2,9 @@ import { Questiontypes } from './ai/Problem'
 
 export class LocalStorageHandler {
     constructor() {
-        let savedProgress = localStorage.getItem('SpaceMathGameProgress');
-
-        if(!savedProgress) {
+        if(!localStorage.getItem('SpaceMathGameProgress')) {
             this.saveGameProgress(Questiontypes.Addition);  
         }
-
     }
 
     getGameProgress(){

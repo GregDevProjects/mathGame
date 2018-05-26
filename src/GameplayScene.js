@@ -68,13 +68,13 @@ export default class GameplayScene extends Phaser.Scene {
   }
 
   showGameOver(){
-    debugger;
    this.scene.start(
      'GameOver', 
       {  
         question: this.level.question.currentQuestion.display, 
         answer: this.level.question.currentQuestion.answer,
-        type: this.level.questionType
+        type: this.level.questionType,
+        score: this.level.score
       }
     );
 

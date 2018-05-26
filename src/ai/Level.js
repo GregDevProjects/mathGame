@@ -9,7 +9,7 @@ import { Problem, Questiontypes, Difficulty } from './Problem'
 export default class Level { 
 
 	constructor(config){
-		this.questionType = Questiontypes.Subtraction;
+		this.questionType = config.scene.gameType;
 
 	    this.question = new Question({
 	        scene: config.scene,
@@ -23,12 +23,16 @@ export default class Level {
 	    	level: this 
 	    });
 
-	    this.scene = config.scene;
-	    this.score = 0;
+		this.scene = config.scene;
+		this.reset(this.questionType);
 	}
 
 	onCorrectAnswer(){
 		this.score++;
+		this.resetQuestionBasedOnScoreAndType();
+	}
+
+	resetQuestionBasedOnScoreAndType(){
 		this.question.resetQuestion(
 			Problem.getQuestion(
 				this.getDifficultyBasedOnScore(),
@@ -69,6 +73,7 @@ export default class Level {
 			return;			
 		}
 		option.playKaboom();
+		//TODO: use methods on player to set visibility 
 		player.visible = false;
     }
 
@@ -82,16 +87,9 @@ export default class Level {
 
 	reset(questionType){
 		this.questionType = questionType;
+		//TODO: use methods on player to set visibility 
 		this.player.visible = true;
 		this.score = 0;
-		this.question.resetQuestion(
-			Problem.getQuestion(this.getDifficultyBasedOnScore(), 
-			this.questionType)
-		);
+		this.resetQuestionBasedOnScoreAndType();
 	}
-	
-
 }
-
-
-//levelsettings 

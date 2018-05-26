@@ -11,15 +11,14 @@ export default class Question extends Phaser.GameObjects.Group {
     this.choices = config.choices;
     this.currentQuestion = config.problem;
     this.level = config.level;
-    this.createChildren();
-    this.displayCurrentQuestion();
+    this.resetQuestion(this.currentQuestion);
 	}
 
 	update(){
     this.children.iterate((anOption) => {anOption.update();});
 	}
 
-  createChildren(){
+  createChoices(){
     var choiceWidth = 100;
     var spacing = this.calcChoiceSpacing(choiceWidth);
     var startingPosition = spacing + choiceWidth/2;
@@ -42,19 +41,28 @@ export default class Question extends Phaser.GameObjects.Group {
   }
 
 
-  //when player collides with the right option 
-  resetQuestion(problem){
-    this.currentQuestion = problem;
+  /* create the choices, or move them to the top of screen 
+  * can't create/destroy them all the time as this can cause visual hitches
+  */
+  resetQuestion(nextQuestion){
+    this.currentQuestion = nextQuestion;
     var currentQuestion = this.currentQuestion;
+    if(this.children.size <= 0){
+      this.createChoices();
+    } else {
+      this.moveChoicesToTop(currentQuestion);
+    }
+    
+    this.displayCurrentQuestion();
+  }
 
+  moveChoicesToTop(currentQuestion){
     this.children.iterate((anOption, i) => {
       anOption.changeTextAndMoveToTop(
         currentQuestion.options[i], 
         (currentQuestion.options[i] == currentQuestion.answer)
       );
     });
-
-    this.displayCurrentQuestion();
   }
 
   //probably shouldn't be in this class
