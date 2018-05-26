@@ -1,12 +1,10 @@
+import { getGameWidth, getGameHeight } from '../Helper'
+
 export default class Player extends Phaser.GameObjects.Sprite {
 	constructor(config){
-		//really have to do all this just to get game height!?
-		let height = config.scene.scene.manager.game.renderer.height - 100;
-		let width = config.scene.scene.manager.game.renderer.width;
-		super(config.scene, width/2 , height, 'player1'); 
+		super(config.scene, getGameWidth()/2 , getGameHeight(), 'player1'); 
 		config.scene.physics.world.enable(this); 
 		this.body.setCollideWorldBounds(true);
-		this.height = height;
 		this.level = config.level;
 		config.scene.add.existing(this);
 
@@ -45,7 +43,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			this.scene.physics.moveTo(
 				this,  
 				this.scene.input.x,
-				this.height,
+				getGameHeight(),
 				300
 			);
 			return;

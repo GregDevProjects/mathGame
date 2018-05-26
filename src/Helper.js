@@ -30,3 +30,11 @@ export function getRandomValueFromArray(array) {
 			getRandomInt(0,array.length - 1)
 		];
 }
+
+export function getGameWidth(){
+	return window.innerWidth;
+}
+
+export function getGameHeight(){
+	return window.innerHeight;
+}

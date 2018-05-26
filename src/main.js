@@ -3,6 +3,7 @@ import 'phaser';
 import GameplayScene from './GameplayScene';
 import MenuScene from './MenuScene';
 import GameOverScene from './GameOverScene';
+import { getGameWidth, getGameHeight } from './Helper'
 
 let config = {
     type: Phaser.CANVAS,

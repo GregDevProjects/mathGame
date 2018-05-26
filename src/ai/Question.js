@@ -1,5 +1,6 @@
 import Choice from '../sprites/Choice'
 import Addition from './Addition'
+import { getGameWidth, getGameHeight } from '../Helper'
 
 //FIXME: use seperate class for actions that trigger game changes 
 export default class Question extends Phaser.GameObjects.Group {
@@ -36,10 +37,8 @@ export default class Question extends Phaser.GameObjects.Group {
   }
 
   calcChoiceSpacing(choiceWidth){
-    let height = this.scene.scene.manager.game.renderer.height;
-    let width = this.scene.scene.manager.game.renderer.width;   
     let totalChoiceWidth = choiceWidth * this.choices;
-    return (width - totalChoiceWidth)/4;// 4 will change if more choices are added 
+    return (getGameWidth() - totalChoiceWidth)/4;// 4 will change if more choices are added 
   }
 
 
@@ -68,9 +67,8 @@ export default class Question extends Phaser.GameObjects.Group {
     }
 
     this.displayText.setText(this.currentQuestion.display);
-    let height = this.scene.scene.manager.game.renderer.height;
-    let width = this.scene.scene.manager.game.renderer.width;   
-    this.displayText.x = (width - this.displayText.width)/2;
+ 
+    this.displayText.x = (getGameWidth() - this.displayText.width)/2;
 
   }
 }

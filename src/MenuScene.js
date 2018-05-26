@@ -1,6 +1,6 @@
 //title menu
 import { Questiontypes, getQuestionText } from './ai/Problem'
-import { getRandomValueFromArray } from './Helper'
+import { getRandomValueFromArray, getGameWidth, getGameHeight } from './Helper'
 import { LocalStorageHandler } from './LocalStorageHandler'
 import MenuBackground from './MenuBackground'
 
@@ -29,7 +29,7 @@ export default class MenuScene extends Phaser.Scene {
     //width of a button
     let menuwidth = 100;
 
-    let fistXPosition = (window.innerWidth - menuwidth)/3;
+    let fistXPosition = (getGameWidth() - menuwidth)/3;
 
     let secondXPostion = fistXPosition + menuwidth + fistXPosition;
 
@@ -45,10 +45,10 @@ export default class MenuScene extends Phaser.Scene {
 }
 
   spaceStyleAddTitleText(){
-    let textSpace = this.add.text(window.innerWidth/2, 10, 'SPACE', this.getMenuTextFontStyle());
-    let textMath = this.add.text(window.innerWidth/2, 10, 'MATH',this.getMenuTextFontStyle());
-    textSpace.x=window.innerWidth/2 - textSpace.width/2;
-    textMath.x=window.innerWidth/2 - textMath.width/2;
+    let textSpace = this.add.text(getGameWidth()/2, 10, 'SPACE', this.getMenuTextFontStyle());
+    let textMath = this.add.text(getGameWidth()/2, 10, 'MATH',this.getMenuTextFontStyle());
+    textSpace.x=getGameWidth()/2 - textSpace.width/2;
+    textMath.x=getGameWidth()/2 - textMath.width/2;
     textMath.y= textSpace.y + textSpace.height;
   }
 
@@ -101,8 +101,8 @@ export default class MenuScene extends Phaser.Scene {
       this.text.destroy();
     }   
     this.text = this.add.text(
-      window.innerWidth, 
-      window.innerHeight - 50, 
+      getGameWidth(), 
+      getGameHeight() - 50, 
       'PLAY ' + getQuestionText(questionType -1).toUpperCase() + ' TO UNLOCK', 
       this.getErrorTextFontStyle() 
     );

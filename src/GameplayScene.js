@@ -1,4 +1,5 @@
 import Level from './ai/Level'
+import { getGameWidth, getGameHeight } from './Helper'
 
 export default class GameplayScene extends Phaser.Scene {
     constructor(test) {
@@ -36,8 +37,8 @@ export default class GameplayScene extends Phaser.Scene {
     this.bg = this.add.tileSprite(
       0, 
       0, 
-      this.scene.manager.game.config.width *2, 
-      this.scene.manager.game.config.height *2, 
+      getGameWidth() *2, 
+      getGameHeight() *2, 
       'bg'
     );
 
