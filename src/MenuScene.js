@@ -1,6 +1,5 @@
-//title menu
 import { Questiontypes, getQuestionText } from './ai/Problem'
-import { getRandomValueFromArray, getGameWidth, getGameHeight } from './Helper'
+import { getRandomValueFromArray, getGameWidth, getGameHeight, getDefaultFontStyleWhite } from './Helper'
 import { LocalStorageHandler } from './LocalStorageHandler'
 import MenuBackground from './MenuBackground'
 
@@ -21,28 +20,26 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   create() {
-
     this.background = new MenuBackground(this);
 
     this.spaceStyleAddTitleText();
+    this.applyButtonImageTweensAndPointerEvents(this.calcButtonPositionAndSetTweens());
+}
 
+  calcButtonPositionAndSetTweens(){
     //width of a button
     let menuwidth = 100;
-
     let fistXPosition = (getGameWidth() - menuwidth)/3;
-
     let secondXPostion = fistXPosition + menuwidth + fistXPosition;
 
-    //setAngle(-20)
-    let buttons = [
+    return [
       { key: 'addition', type: Questiontypes.Addition, x: fistXPosition, y: 300, tweenConfig: {scaleX: 1.2,scaleY: 1.2,yoyo: true,repeat: -1}},
       { key: 'division', type: Questiontypes.Division, x: fistXPosition, y: 450, tweenConfig: {alpha: 0.7,yoyo: true,repeat: -1}},
       { key: 'multiplication', type: Questiontypes.Multiplication, x: secondXPostion, y: 450, tweenConfig: {angle: 360,repeat: -1,duration: 2000}},
       { angle: 20, key: 'subtraction', type: Questiontypes.Subtraction, x: secondXPostion, y: 300, tweenConfig: {angle: -20, yoyo: true,repeat: -1}}
-    ]
+    ];
 
-    this.setupButtons(buttons);
-}
+  }
 
   spaceStyleAddTitleText(){
     let textSpace = this.add.text(getGameWidth()/2, 10, 'SPACE', this.getMenuTextFontStyle());
@@ -56,7 +53,7 @@ export default class MenuScene extends Phaser.Scene {
     return { font: "90px Helvetica", fill: "#ffffff", fontWeight : 'bolder' };
   }
 
-  setupButtons(buttons){
+  applyButtonImageTweensAndPointerEvents(buttons){
     this.menuButtons = [];
     for (let aButton of buttons) {
 
@@ -102,17 +99,13 @@ export default class MenuScene extends Phaser.Scene {
     }   
     this.text = this.add.text(
       getGameWidth(), 
-      getGameHeight() - 50, 
+      getGameHeight() - 30, 
       'PLAY ' + getQuestionText(questionType -1).toUpperCase() + ' TO UNLOCK', 
-      this.getErrorTextFontStyle() 
+      getDefaultFontStyleWhite() 
     );
     this.tweens.add(
       {duration: 3000, x: -this.text.width, targets: this.text}
     )
-  }
-
-  getErrorTextFontStyle(){
-    return {font: "30px Helvetica", fill: "#ff0000", fontWeight : 'bolder' };
   }
 
   update(time, delta) {

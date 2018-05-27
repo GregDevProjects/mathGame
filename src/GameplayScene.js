@@ -1,4 +1,4 @@
-import Level from './ai/Level'
+import { Level } from './ai/Level'
 import { getGameWidth, getGameHeight } from './Helper'
 
 export default class GameplayScene extends Phaser.Scene {
@@ -67,14 +67,15 @@ export default class GameplayScene extends Phaser.Scene {
     this.level.reset(questiontype);
   }
 
-  showGameOver(){
+  showGameOver(isVictorious){
    this.scene.start(
      'GameOver', 
       {  
         question: this.level.question.currentQuestion.display, 
         answer: this.level.question.currentQuestion.answer,
         type: this.level.questionType,
-        score: this.level.score
+        score: this.level.score,
+        isVictorious: isVictorious
       }
     );
 

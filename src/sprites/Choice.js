@@ -21,8 +21,7 @@ export default class Choice extends Phaser.GameObjects.Sprite {
 
 	playKaboom(){
 		this.text.destroy();
-		this.anims.play('kaboom',true).
-			currentAnim.onComplete = () => { this.scene.showGameOver(); };
+		return this.anims.play('kaboom',true);
 	}
 
 	changeTextAndMoveToTop(newText, isCorrectAnswer){

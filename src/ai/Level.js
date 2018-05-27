@@ -2,11 +2,12 @@ import Question from './Question'
 import Player from '../sprites/Player'
 import { Problem, Questiontypes, Difficulty } from './Problem'
 
+export const MAX_SCORE = 20;
 
 //holds gameplay logic
 //spawns player
 //keeps track of correct questions to determine types of questions 
-export default class Level { 
+export class Level { 
 
 	constructor(config){
 		this.questionType = config.scene.gameType;
@@ -29,7 +30,15 @@ export default class Level {
 
 	onCorrectAnswer(){
 		this.score++;
+		if(this.score > MAX_SCORE){
+			this.onVictory();
+			return;
+		}
 		this.resetQuestionBasedOnScoreAndType();
+	}
+
+	onVictory(){
+		this.scene.showGameOver(true);
 	}
 
 	resetQuestionBasedOnScoreAndType(){
@@ -54,7 +63,7 @@ export default class Level {
 			return Difficulty.l;
 		}
 
-		if(this.score < 20){
+		if(this.score <= 20){
 			return Difficulty.xl;
 		}
 
@@ -72,7 +81,11 @@ export default class Level {
 			player.level.onCorrectAnswer();
 			return;			
 		}
-		option.playKaboom();
+
+		option.playKaboom().currentAnim.onComplete = (choice, Animation) => { 
+			choice.scene.showGameOver(false); 
+		};
+
 		//TODO: use methods on player to set visibility 
 		player.visible = false;
     }

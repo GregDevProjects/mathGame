@@ -38,3 +38,11 @@ export function getGameWidth(){
 export function getGameHeight(){
 	return window.innerHeight;
 }
+
+export function getDefaultFontStyleWhite(){
+	return {font: "30px Helvetica", fill: "#ffffff", fontWeight : 'bolder' }; 
+}
+
+export function getDefaultFontStyleBlack(){
+	return {font: "30px Helvetica", fill: "#000000", fontWeight : 'bolder' }; 
+}

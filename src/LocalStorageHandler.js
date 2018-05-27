@@ -17,6 +17,9 @@ export class LocalStorageHandler {
     }
 
     saveGameProgress(gameProgress){
+        if(gameProgress => 4){
+            return;
+        }
         try{
             localStorage.setItem('SpaceMathGameProgress', gameProgress)
         } catch(e) {
