@@ -87,13 +87,13 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   showUnlocksAndSaveProgress(){
-    if(this.questionType != this.localStorage.getGameProgress()){
+    if(this.questionType != this.localStorage.getGameProgress() || this.questionType >= 4 ){
       if(this.isVictorious){
         this.createBottomScrollingText("GOOD JOB!!!");
       }
       return;
     } 
-
+    
     var nextQuestionLevel = this.questionType+1;
     if(this.score > 5){
       var bottomTextDisplay = (getQuestionText(nextQuestionLevel) + ' Unlocked!').toUpperCase();

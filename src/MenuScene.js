@@ -34,7 +34,7 @@ export default class MenuScene extends Phaser.Scene {
 
     return [
       { key: 'addition', type: Questiontypes.Addition, x: fistXPosition, y: 300, tweenConfig: {scaleX: 1.2,scaleY: 1.2,yoyo: true,repeat: -1}},
-      { key: 'division', type: Questiontypes.Division, x: fistXPosition, y: 450, tweenConfig: {alpha: 0.7,yoyo: true,repeat: -1}},
+      { angle: 90, key: 'division', type: Questiontypes.Division, x: fistXPosition, y: 450, tweenConfig: {alpha: 0.5,yoyo: true,repeat: -1}},
       { key: 'multiplication', type: Questiontypes.Multiplication, x: secondXPostion, y: 450, tweenConfig: {angle: 360,repeat: -1,duration: 2000}},
       { angle: 20, key: 'subtraction', type: Questiontypes.Subtraction, x: secondXPostion, y: 300, tweenConfig: {angle: -20, yoyo: true,repeat: -1}}
     ];

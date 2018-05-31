@@ -46,3 +46,7 @@ export function getDefaultFontStyleWhite(){
 export function getDefaultFontStyleBlack(){
 	return {font: "30px Helvetica", fill: "#000000", fontWeight : 'bolder' }; 
 }
+
+export function getPlayerBottomOffset(){
+	return 70;
+}

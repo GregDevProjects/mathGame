@@ -1,8 +1,8 @@
-import { getGameWidth, getGameHeight } from '../Helper'
+import { getGameWidth, getGameHeight, getPlayerBottomOffset } from '../Helper'
 
 export default class Player extends Phaser.GameObjects.Sprite {
 	constructor(config){
-		super(config.scene, getGameWidth()/2 , getGameHeight() - 50, 'player1'); 
+		super(config.scene, getGameWidth()/2 , getGameHeight() - getPlayerBottomOffset(), 'player1'); 
 		config.scene.physics.world.enable(this); 
 		this.body.setCollideWorldBounds(true);
 		this.level = config.level;
@@ -13,15 +13,43 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			right: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
     	};
 
+		this.emitter = config.scene.add.particles('red').createEmitter({
+			speed: 80,
+			scale: { start: 1, end: 0 },
+			blendMode: 'ADD',
+			gravityY: 700
+		});
+	
+		this.emitter.startFollow(this).followOffset = {x: 0, y: 30};
+		this.flyingToTop = false;
+		this.victoryAnimationPromise = new Promise((resolve, reject)=>{
+			this.victoryAnimationFinished = resolve;
+		});
+
 		
 	}
+
+	death(){
+		this.visible = false;
+		this.emitter.setVisible(false);
+	}
+
 	//FIXME: keyboard is a setting 
 	//FIXME: refactor control methods 
 	update(){
-			
+		if(!this.flyingToTop){
+			this.handleTouchControlls();
+			return;
+		}		
+		this.y-=7;
+		if(this.body.blocked.up){
+			this.victoryAnimationFinished();
+		}
+	}
+
+	handleTouchControlls(){
 		if (this.keys.left.isDown)
-		{
-			
+		{		
 		    this.body.setVelocityX(-260);
 		}
 		else if (this.keys.right.isDown)
@@ -43,12 +71,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			this.scene.physics.moveTo(
 				this,  
 				this.scene.input.x,
-				getGameHeight() - 50,
+				getGameHeight() - getPlayerBottomOffset(),
 				300
 			);
 			return;
-	    } 
-    	this.body.setVelocityX(0);
-    	this.body.setVelocityY(0);	    
+		} 
+		this.body.setVelocityX(0);
+    	this.body.setVelocityY(0);	
+	}
+
+	disableControllsAndFlyToTop(){
+		this.flyingToTop = true;
+		return this.victoryAnimationPromise;
 	}
 }

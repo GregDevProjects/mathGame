@@ -18,6 +18,7 @@ export default class GameplayScene extends Phaser.Scene {
     this.load.spritesheet('explosion', 'src/img/explosion.png', { 'frameWidth': 96, 'frameHeight': 96 });
     this.load.image('player1', 'src/img/player1.png');
     this.load.image('bg','src/img/bg.png');
+    this.load.image('red', 'src/img/red.png');
   }
 
   create() {
@@ -64,7 +65,7 @@ export default class GameplayScene extends Phaser.Scene {
 
   resetGame(questiontype){
     this.paused = false;
-    this.level.reset(questiontype);
+   // this.level.reset(questiontype);
   }
 
   showGameOver(isVictorious){

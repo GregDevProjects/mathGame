@@ -38,7 +38,11 @@ export class Level {
 	}
 
 	onVictory(){
-		this.scene.showGameOver(true);
+		this.player.disableControllsAndFlyToTop().then(
+			() => {
+				this.scene.showGameOver(true);
+			}
+		);	
 	}
 
 	resetQuestionBasedOnScoreAndType(){
@@ -87,7 +91,7 @@ export class Level {
 		};
 
 		//TODO: use methods on player to set visibility 
-		player.visible = false;
+		player.death();
     }
 
     //should have pause methods 
@@ -101,7 +105,7 @@ export class Level {
 	reset(questionType){
 		this.questionType = questionType;
 		//TODO: use methods on player to set visibility 
-		this.player.visible = true;
+		//this.player.visible = true;
 		this.score = 0;
 		this.resetQuestionBasedOnScoreAndType();
 	}
