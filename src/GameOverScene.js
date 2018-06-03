@@ -19,7 +19,6 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   preload() {
-    // MENU
     this.load.image('retry', 'src/img/80_fa_undo.png');
     this.load.image('menu',' src/img/80_icomoon-home2.png');
     this.load.image('bg', 'src/img/menu_bg.png');
@@ -31,7 +30,7 @@ export default class GameOverScene extends Phaser.Scene {
     this.background = new MenuBackground(this);
     this.localStorage = new LocalStorageHandler();
     this.createTextAndGraphics();
-   
+    this.pause = false;
   }
 
   createTextAndGraphics(){
@@ -78,7 +77,7 @@ export default class GameOverScene extends Phaser.Scene {
     }, this);
 
     this.tweens.add(
-      { duration: 3000, angle: -360, targets: retryImage, repeat: -1 }
+      { duration: 100000, angle: -360, targets: retryImage, repeat: -1 }
     );
 
     this.add.image(menu.x, menu.y, 'menu').setInteractive().on('pointerdown', (event) => {   
@@ -122,10 +121,12 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   goMenu(){
+    this.pause = true;
+    this.scene.stop();
     this.scene.start('Menu');
   }
 
   update(time, delta) {
-    this.background.moveToDirection();
+      this.background.moveToDirection();
   }
 }

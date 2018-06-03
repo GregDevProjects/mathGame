@@ -25,26 +25,29 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		this.victoryAnimationPromise = new Promise((resolve, reject)=>{
 			this.victoryAnimationFinished = resolve;
 		});
-
-		
 	}
 
 	death(){
-		this.visible = false;
 		this.emitter.setVisible(false);
+		this.destroy();
 	}
 
 	//FIXME: keyboard is a setting 
 	//FIXME: refactor control methods 
 	update(){
+		if(!this.active){
+			return;
+		}
 		if(!this.flyingToTop){
 			this.handleTouchControlls();
 			return;
 		}		
 		this.y-=7;
 		if(this.body.blocked.up){
+			this.destroy();
 			this.victoryAnimationFinished();
 		}
+		
 	}
 
 	handleTouchControlls(){

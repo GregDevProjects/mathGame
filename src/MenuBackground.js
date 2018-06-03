@@ -2,7 +2,7 @@ import { getRandomValueFromArray } from './Helper'
 
 export default class MenuBackground extends Phaser.GameObjects.TileSprite {
     constructor(scene){
-        super(scene, 0, 0, window.innerWidth *2, window.innerHeight *2, 'bg');
+        super(scene, 0, 0, window.innerWidth *2, window.innerHeight *2, 'menu_bg');
         scene.add.existing(this);
         this.direction = {x: -1, y: -1};
         this.titleSpriteDirectionTime = 5*60;

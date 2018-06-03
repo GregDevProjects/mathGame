@@ -10,7 +10,7 @@ export default class GameplayScene extends Phaser.Scene {
     }
 
     init(data) {
-        this.gameType = data.questionType;
+      this.gameType = data.questionType;
     }
 
   preload() {
@@ -65,10 +65,11 @@ export default class GameplayScene extends Phaser.Scene {
 
   resetGame(questiontype){
     this.paused = false;
-   // this.level.reset(questiontype);
+    this.level.reset(questiontype);
   }
 
   showGameOver(isVictorious){
+    this.scene.stop();
    this.scene.start(
      'GameOver', 
       {  

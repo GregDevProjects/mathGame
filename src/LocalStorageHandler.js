@@ -16,8 +16,9 @@ export class LocalStorageHandler {
         }
     }
 
-    saveGameProgress(gameProgress){
-        if(gameProgress => 4){
+    saveGameProgress(gameProgress){    
+        if(gameProgress > 4){
+            debugger;
             return;
         }
         try{

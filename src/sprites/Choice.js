@@ -9,10 +9,13 @@ export default class Choice extends Phaser.GameObjects.Sprite {
 	 	config.scene.add.existing(this); 	
 	 	this.fontStyle = {font: "30px Arial", fill: "#ffffff", fontWeight : 'bolder' };
 	 	this.text = this.scene.add.text(this.x, this.y, config.value, this.fontStyle);
-	 	this.applyRandomTexture();
+		this.applyRandomTexture();
 	}
 
 	update(){
+		if(!this.active){
+			return;
+		}
 		this.body.setVelocityY(160);
 		this.text.x = this.x - this.text.width/2;
 		this.text.y = this.y - 12;
@@ -20,8 +23,9 @@ export default class Choice extends Phaser.GameObjects.Sprite {
 	}
 
 	playKaboom(){
+		this.anims.play('kaboom',true);
 		this.text.destroy();
-		return this.anims.play('kaboom',true);
+		return this;
 	}
 
 	changeTextAndMoveToTop(newText, isCorrectAnswer){

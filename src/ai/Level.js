@@ -26,6 +26,7 @@ export class Level {
 
 		this.scene = config.scene;
 		this.reset(this.questionType);
+		this.allowPlayerQuestionOverlap = true;
 	}
 
 	onCorrectAnswer(){
@@ -37,7 +38,12 @@ export class Level {
 		this.resetQuestionBasedOnScoreAndType();
 	}
 
+	disablePlayerQuestionOverlap(){
+		this.allowPlayerQuestionOverlap = false;
+	}
+
 	onVictory(){
+		this.disablePlayerQuestionOverlap();
 		this.player.disableControllsAndFlyToTop().then(
 			() => {
 				this.scene.showGameOver(true);
@@ -75,7 +81,9 @@ export class Level {
 	}
 
 	update(){
-		this.scene.physics.overlap(this.player, this.question, this.onPlayerQuestionCollision);
+		if(this.allowPlayerQuestionOverlap){
+			this.scene.physics.overlap(this.player, this.question, this.onPlayerQuestionCollision, undefined , this);
+		}
 		this.player.update()
     	this.question.update();
 	}
@@ -86,16 +94,16 @@ export class Level {
 			return;			
 		}
 
-		option.playKaboom().currentAnim.onComplete = (choice, Animation) => { 
-			choice.scene.showGameOver(false); 
-		};
+		option.playKaboom().on('animationcomplete', function() { 
+			this.showGameOver(false); 
+		}, this.scene);
 
-		//TODO: use methods on player to set visibility 
 		player.death();
     }
 
     //should have pause methods 
 	pause(){
+		return;
 		this.player.body.setVelocityX(0);
 		this.question.children.entries.forEach(function(anOption){
 			anOption.body.setVelocityY(0);
@@ -104,8 +112,6 @@ export class Level {
 
 	reset(questionType){
 		this.questionType = questionType;
-		//TODO: use methods on player to set visibility 
-		//this.player.visible = true;
 		this.score = 0;
 		this.resetQuestionBasedOnScoreAndType();
 	}

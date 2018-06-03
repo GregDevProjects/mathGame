@@ -16,7 +16,7 @@ export default class MenuScene extends Phaser.Scene {
     this.load.image('division', 'src/img/menu_division.png');
     this.load.image('multiplication', 'src/img/100_fa_times.png');
     this.load.image('subtraction', 'src/img/100_fa_minus.png');
-    this.load.image('bg', 'src/img/menu_bg.png');
+    this.load.image('menu_bg', 'src/img/menu_bg.png');
   }
 
   create() {
@@ -83,6 +83,7 @@ export default class MenuScene extends Phaser.Scene {
 
   startGameOrShowErrorMessage(aButton){
     if(this.isGameModeUnlocked(aButton.questionType)) {
+      this.scene.stop();
       this.scene.start('gamePlay', {questionType: aButton.questionType});
     } else {
       this.showErrorText(aButton.questionType);
