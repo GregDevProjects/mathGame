@@ -77,7 +77,7 @@ export default class GameOverScene extends Phaser.Scene {
     }, this);
 
     this.tweens.add(
-      { duration: 100000, angle: -360, targets: retryImage, repeat: -1 }
+      { duration: 3000, angle: -360, targets: retryImage, repeat: -1 }
     );
 
     this.add.image(menu.x, menu.y, 'menu').setInteractive().on('pointerdown', (event) => {   

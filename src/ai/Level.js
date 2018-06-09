@@ -27,6 +27,7 @@ export class Level {
 		this.scene = config.scene;
 		this.reset(this.questionType);
 		this.allowPlayerQuestionOverlap = true;
+		this.rightAnswerCollisions = 0;
 	}
 
 	onCorrectAnswer(){
@@ -88,7 +89,7 @@ export class Level {
     	this.question.update();
 	}
 
-	onPlayerQuestionCollision(player, option){
+	gameOverOrCorrectAnswer(player, option){
 		if(option.isCorrectAnswer) {
 			player.level.onCorrectAnswer();
 			return;			
@@ -98,17 +99,27 @@ export class Level {
 			this.showGameOver(false); 
 		}, this.scene);
 
-		player.death();
-    }
-
-    //should have pause methods 
-	pause(){
-		return;
-		this.player.body.setVelocityX(0);
-		this.question.children.entries.forEach(function(anOption){
-			anOption.body.setVelocityY(0);
-   		});
+		player.death();		
 	}
+
+
+
+	onPlayerQuestionCollision(player, option){
+
+		if(option.isCorrectAnswer){
+			console.log(this.rightAnswerCollisions);
+			//if answer is right, wait 3 frames to ensure there isn't a collision with a wrong answer 
+			this.rightAnswerCollisions++;
+			if(this.rightAnswerCollisions > 2){
+				this.gameOverOrCorrectAnswer(player,option);
+				this.rightAnswerCollisions = 0;
+			}
+		} else {
+			//always kill the player on wrong answer 
+			this.gameOverOrCorrectAnswer(player,option);
+		}
+		
+    }
 
 	reset(questionType){
 		this.questionType = questionType;
