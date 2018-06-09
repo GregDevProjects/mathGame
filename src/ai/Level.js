@@ -36,6 +36,7 @@ export class Level {
 			this.onVictory();
 			return;
 		}
+		this.player.growAndShrink();
 		this.resetQuestionBasedOnScoreAndType();
 	}
 
@@ -105,20 +106,17 @@ export class Level {
 
 
 	onPlayerQuestionCollision(player, option){
-
 		if(option.isCorrectAnswer){
-			console.log(this.rightAnswerCollisions);
 			//if answer is right, wait 3 frames to ensure there isn't a collision with a wrong answer 
 			this.rightAnswerCollisions++;
 			if(this.rightAnswerCollisions > 2){
 				this.gameOverOrCorrectAnswer(player,option);
 				this.rightAnswerCollisions = 0;
 			}
-		} else {
-			//always kill the player on wrong answer 
-			this.gameOverOrCorrectAnswer(player,option);
+			return;
 		}
-		
+		//always kill the player on wrong answer 
+		this.gameOverOrCorrectAnswer(player,option);	
     }
 
 	reset(questionType){

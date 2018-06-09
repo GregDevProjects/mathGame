@@ -3,10 +3,11 @@ import { getGameWidth, getGameHeight, getPlayerBottomOffset } from '../Helper'
 export default class Player extends Phaser.GameObjects.Sprite {
 	constructor(config){
 		super(config.scene, getGameWidth()/2 , getGameHeight() - getPlayerBottomOffset(), 'player1'); 
-		config.scene.physics.world.enable(this); 
+		this.scene = config.scene;
+		this.scene.physics.world.enable(this); 
 		this.body.setCollideWorldBounds(true);
 		this.level = config.level;
-		config.scene.add.existing(this);
+		this.scene.add.existing(this);
 
 	    this.keys = {
 			left: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
@@ -25,6 +26,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		this.victoryAnimationPromise = new Promise((resolve, reject)=>{
 			this.victoryAnimationFinished = resolve;
 		});
+
+	  
 	}
 
 	death(){
@@ -50,6 +53,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		
 	}
 
+	growAndShrink(){
+		this.scene.tweens.add(
+			{ targets: this, duration: 300, scaleX: 1.5,scaleY: 1.5,yoyo: true } 
+		);
+	}
+
 	handleTouchControlls(){
 		if (this.keys.left.isDown)
 		{		
@@ -67,7 +76,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 	    if(this.scene.input.activePointer.isDown){
 	    	let pointerPlayerDistance = Math.abs(this.scene.input.x - this.x);
 
-	    	if(pointerPlayerDistance < 8){
+	    	if(pointerPlayerDistance < 6){
 	    		return;
 	    	}
 
