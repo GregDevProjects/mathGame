@@ -1,4 +1,5 @@
 import { Level } from './ai/Level'
+import { Music } from './Music'
 import { getGameWidth, getGameHeight } from './Helper'
 
 export default class GameplayScene extends Phaser.Scene {
@@ -19,6 +20,11 @@ export default class GameplayScene extends Phaser.Scene {
     this.load.image('player1', 'src/img/player1.png');
     this.load.image('bg','src/img/bg.png');
     this.load.image('red', 'src/img/red.png');
+
+    this.load.audio('addition_music', 'src/img/addition.mp3');
+    this.load.audio('subtraction_music', 'src/img/subtraction.mp3');
+    this.load.audio('multiplication_music', 'src/img/multiplication.mp3');
+    this.load.audio('division_music', 'src/img/division.mp3');
   }
 
   create() {
@@ -48,6 +54,12 @@ export default class GameplayScene extends Phaser.Scene {
     );
 
     this.level = new Level({scene: this});
+    this.music = new Music(
+      { 
+        scene: this,
+        key: Music.getKeyForQuestionType(this.gameType)
+      }
+    ).play();
     this.paused = true;
     this.resetGame(this.gameType);
   }
@@ -69,6 +81,7 @@ export default class GameplayScene extends Phaser.Scene {
 
   showGameOver(isVictorious){
     this.scene.stop();
+    this.music.stop();
    this.scene.start(
      'GameOver', 
       {  

@@ -1,6 +1,7 @@
 import { Questiontypes, getQuestionText } from './ai/Problem'
 import { getRandomValueFromArray, getGameWidth, getGameHeight, getDefaultFontStyleWhite } from './Helper'
 import { LocalStorageHandler } from './LocalStorageHandler'
+import { Music } from './Music'
 import MenuBackground from './MenuBackground'
 
 export default class MenuScene extends Phaser.Scene {
@@ -17,6 +18,8 @@ export default class MenuScene extends Phaser.Scene {
     this.load.image('multiplication', 'src/img/100_fa_times.png');
     this.load.image('subtraction', 'src/img/100_fa_minus.png');
     this.load.image('menu_bg', 'src/img/menu_bg.png');
+
+    this.load.audio('menu_music', 'src/img/menu.mp3');
   }
 
   create() {
@@ -24,6 +27,12 @@ export default class MenuScene extends Phaser.Scene {
 
     this.spaceStyleAddTitleText();
     this.applyButtonImageTweensAndPointerEvents(this.calcButtonPositionAndSetTweens());
+    this.music = new Music(
+      { 
+        scene: this,
+        key:'menu_music'
+      }
+    ).play();
 }
 
   calcButtonPositionAndSetTweens(){
@@ -83,6 +92,7 @@ export default class MenuScene extends Phaser.Scene {
 
   startGameOrShowErrorMessage(aButton){
     if(this.isGameModeUnlocked(aButton.questionType)) {
+      this.music.stop();
       this.scene.stop();
       this.scene.start('gamePlay', {questionType: aButton.questionType});
     } else {
