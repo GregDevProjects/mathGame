@@ -32,7 +32,7 @@ export class Level {
 
 	onCorrectAnswer(){
 		this.score++;
-		if(this.score > MAX_SCORE){
+		if(this.score >= MAX_SCORE){
 			this.onVictory();
 			return;
 		}
