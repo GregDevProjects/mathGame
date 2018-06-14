@@ -3,6 +3,7 @@ import 'phaser';
 import GameplayScene from './GameplayScene';
 import MenuScene from './MenuScene';
 import GameOverScene from './GameOverScene';
+import LoaderScene from './LoaderScene';
 import { getGameWidth, getGameHeight } from './Helper'
 //FIXME: create a preloader scene so images/animations aren't created every time the scene starts
 //http://www.html5gamedevs.com/topic/36172-returning-to-scenes-how-to-stop-thisanimscreate-attempting-to-create-duplicate-keys/
@@ -16,7 +17,8 @@ let config = {
             gravity: { y: 0 }
         }
     },
-    scene: [     
+    scene: [
+        LoaderScene,     
         MenuScene,
         GameOverScene,
         GameplayScene

@@ -8,7 +8,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		this.body.setCollideWorldBounds(true);
 		this.level = config.level;
 		this.scene.add.existing(this);
-
+		this.moveSpeed = 300;
 	    this.keys = {
 			left: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
 			right: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
@@ -35,14 +35,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		this.destroy();
 	}
 
-	//FIXME: keyboard is a setting 
-	//FIXME: refactor control methods 
 	update(){
 		if(!this.active){
 			return;
 		}
 		if(!this.flyingToTop){
-			this.handleTouchControlls();
+			if(!this.isPlayerPressingKey()){
+				this.handleTouchControlls();
+			}
 			return;
 		}		
 		this.y-=7;
@@ -60,19 +60,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 	}
 
 	handleTouchControlls(){
-		if (this.keys.left.isDown)
-		{		
-		    this.body.setVelocityX(-260);
-		}
-		else if (this.keys.right.isDown)
-		{
-		    this.body.setVelocityX(260);
-		}
-		else
-		{
-		    this.body.setVelocityX(0);
-		}
-
 	    if(this.scene.input.activePointer.isDown){
 	    	let pointerPlayerDistance = Math.abs(this.scene.input.x - this.x);
 
@@ -84,12 +71,24 @@ export default class Player extends Phaser.GameObjects.Sprite {
 				this,  
 				this.scene.input.x,
 				getGameHeight() - getPlayerBottomOffset(),
-				300
+				this.moveSpeed
 			);
 			return;
 		} 
 		this.body.setVelocityX(0);
     	this.body.setVelocityY(0);	
+	}
+
+	isPlayerPressingKey(){
+		if (this.keys.left.isDown){		
+			this.body.setVelocityX(-this.moveSpeed);
+			return true;
+		}else if (this.keys.right.isDown){
+			this.body.setVelocityX(this.moveSpeed);
+			return true;
+		}
+		this.body.setVelocityX(0);
+		return false;
 	}
 
 	disableControllsAndFlyToTop(){

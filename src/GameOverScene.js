@@ -18,17 +18,6 @@ export default class GameOverScene extends Phaser.Scene {
     this.isVictorious = data.isVictorious;
   }
 
-  preload() {
-    this.load.image('retry', 'src/img/80_fa_undo.png');
-    this.load.image('menu',' src/img/80_icomoon-home2.png');
-    this.load.image('bg', 'src/img/menu_bg.png');
-    this.load.image('trophy', 'src/img/30-trophy.png');
-    this.load.image('thumbs', 'src/img/100-thumbs-up.png');
-
-    this.load.audio('win', 'src/img/win.mp3');
-    this.load.audio('fail', 'src/img/fail.mp3');
-  }
-
   create() {
     this.background = new MenuBackground(this);
     this.localStorage = new LocalStorageHandler();

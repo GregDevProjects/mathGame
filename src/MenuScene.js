@@ -12,15 +12,6 @@ export default class MenuScene extends Phaser.Scene {
 
     this.localStorage = new LocalStorageHandler();
   }
-  preload() {
-    this.load.image('addition', 'src/img/100_fa_plus.png');
-    this.load.image('division', 'src/img/menu_division.png');
-    this.load.image('multiplication', 'src/img/100_fa_times.png');
-    this.load.image('subtraction', 'src/img/100_fa_minus.png');
-    this.load.image('menu_bg', 'src/img/menu_bg.png');
-
-    this.load.audio('menu_music', 'src/img/menu.mp3');
-  }
 
   create() {
     this.background = new MenuBackground(this);
