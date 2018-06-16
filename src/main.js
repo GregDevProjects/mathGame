@@ -5,12 +5,11 @@ import MenuScene from './MenuScene';
 import GameOverScene from './GameOverScene';
 import LoaderScene from './LoaderScene';
 import { getGameWidth, getGameHeight } from './Helper'
-//FIXME: create a preloader scene so images/animations aren't created every time the scene starts
-//http://www.html5gamedevs.com/topic/36172-returning-to-scenes-how-to-stop-thisanimscreate-attempting-to-create-duplicate-keys/
+
 let config = {
     type: Phaser.CANVAS,
-    width: window.innerWidth,// * window.devicePixelRatio,
-    height: window.innerHeight,// * window.devicePixelRatio,
+    width: getGameWidth(),// * window.devicePixelRatio,
+    height: getGameHeight(),// * window.devicePixelRatio,
     physics: {
         default: 'arcade',
         arcade: {

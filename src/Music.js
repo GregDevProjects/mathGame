@@ -5,6 +5,19 @@ export class Music {
         this.scene = config.scene;
         this.musicKey = config.key;
         this.currentSong = this.scene.sound.add(config.key, {loop : true});
+        this.addMobilePauseResumeEvents();
+    }
+    
+    addMobilePauseResumeEvents(){
+        this.pause = this.pause.bind(this);
+        this.resume = this.resume.bind(this);
+        document.addEventListener("pause",  this.pause, true);
+        document.addEventListener("resume", this.resume, true);
+    }
+
+    removeMobilePauseResumeEvents(){
+        document.removeEventListener("pause", this.pause, true);
+        document.removeEventListener("resume", this.resume, true);  
     }
 
     play(){
@@ -13,7 +26,16 @@ export class Music {
     }
 
     stop(){
+        this.removeMobilePauseResumeEvents();
         this.currentSong.destroy();
+    }
+
+    pause(){
+        this.currentSong.pause();
+    }
+
+    resume(){
+        this.currentSong.resume();
     }
 
     static getKeyForQuestionType(questionType){
